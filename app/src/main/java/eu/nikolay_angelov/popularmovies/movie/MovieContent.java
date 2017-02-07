@@ -57,11 +57,41 @@ public class MovieContent {
         public final String id;
         public final String content;
         public final String details;
+        public final String thumbnailUri;
+        public final Boolean adult;
+        public final Double voteAverage;
+        public final Boolean videoAvailable;
+        public final Double popularity;
+        public final String title;
+        public final String originalTitle;
+        public  final String originalLanguage;
+
+
+        public MovieItem(String id, String content, String details, String thumbnailUri, Boolean adult, Double voteAverage, Boolean videoAvailable, Double popularity, String title,  String originalTitle, String originalLanguage) {
+            this.id = id;
+            this.content = content;
+            this.details = details;
+            this.thumbnailUri = thumbnailUri;
+            this.adult = adult;
+            this.voteAverage = voteAverage;
+            this.videoAvailable = videoAvailable;
+            this.popularity = popularity;
+            this.title = title;
+            this.originalTitle = originalTitle;
+            this.originalTitle = originalLanguage;
+        }
 
         public MovieItem(String id, String content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;
+        }
+
+        public MovieItem(String id, String content, String details, String thumbnailUri) {
+            this.id = id;
+            this.content = content;
+            this.details = details;
+            this.thumbnailUri = thumbnailUri;
         }
 
         @Override
