@@ -1,4 +1,4 @@
-package eu.nikolay_angelov.popularmovies.dummy;
+package eu.nikolay_angelov.popularmovies.movie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,17 +11,17 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class MovieContent {
 
     /**
-     * An array of sample (dummy) items.
+     * An array of sample (movie) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<MovieItem> ITEMS = new ArrayList<MovieItem>();
 
     /**
-     * A map of sample (dummy) items, by ID.
+     * A map of sample (movie) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, MovieItem> ITEM_MAP = new HashMap<String, MovieItem>();
 
     private static final int COUNT = 25;
 
@@ -32,13 +32,13 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(MovieItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    private static MovieItem createDummyItem(int position) {
+        return new MovieItem(String.valueOf(position), "Item " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -51,14 +51,14 @@ public class DummyContent {
     }
 
     /**
-     * A dummy item representing a piece of content.
+     * A movie item representing a piece of content.
      */
-    public static class DummyItem {
+    public static class MovieItem {
         public final String id;
         public final String content;
         public final String details;
 
-        public DummyItem(String id, String content, String details) {
+        public MovieItem(String id, String content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;
