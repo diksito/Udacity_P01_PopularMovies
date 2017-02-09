@@ -29,14 +29,6 @@ public class NetworkUtils {
         MOST_POPULAR, TOP_RATED
     }
 
-    /*
-     * The sort field. One of stars, forks, or updated.
-     * Default: results are sorted by best match if no field is specified.
-     */
-    //final static String PARAM_SORT = "sort";
-    //final static String sortBy = "stars";
-
-
     /**
      * Builds the URL used to query Github.
      *

@@ -79,7 +79,6 @@ public class MovieListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_movie_list);
 
         setContentView(R.layout.movie_grid_content);
 
@@ -90,16 +89,12 @@ public class MovieListActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.movies_grid_view);
 
         makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.MOST_POPULAR);
-        //gridView.setAdapter(new MovieAdapter(this));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-               // Toast.makeText(
-                //        getApplicationContext(), "Hello Position #" + position, Toast.LENGTH_SHORT).show();
 
                 Context context = getApplicationContext();
-                //gridView.getAdapter()
                 MovieContent.MovieItem selectedMovie = (MovieContent.MovieItem)gridView.getAdapter().getItem(position);
                 Intent intent = new Intent(context, MovieDetailActivity.class);
 
@@ -107,12 +102,7 @@ public class MovieListActivity extends AppCompatActivity {
                 intent.putExtra(MovieDetailFragment.MOVIE_ID, selectedMovie.id);
 
                 Bundle b = new Bundle();
-                /*
-                if(selectedMovie == null) {
-                    Log.i(TAG, "selectedMovie is null");
-                } else {
-                    Log.i(TAG, "selectedMovie is initialized");
-                }*/
+
                 b.putParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem", (Parcelable) selectedMovie);
 
                 intent.putExtras(b);
@@ -121,27 +111,6 @@ public class MovieListActivity extends AppCompatActivity {
 
             }
         });
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-        //View recyclerView = findViewById(R.id.movie_list);
-        //assert recyclerView != null;
-        //setupRecyclerView((RecyclerView) recyclerView);
-        /*
-        if (findViewById(R.id.movie_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }*/
     }
     public class MovieDBQueryTask extends AsyncTask<URL, Void, MovieContent> {
 

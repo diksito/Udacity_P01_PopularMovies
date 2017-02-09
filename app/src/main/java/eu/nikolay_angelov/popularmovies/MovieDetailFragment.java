@@ -64,14 +64,6 @@ public class MovieDetailFragment extends Fragment {
             } else {
                 Log.i(TAG, "empty");
             }
-/*
-            if (b != null) {
-                mItem = (MovieContent.MovieItem)b.getParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem");
-                Log.i(TAG, "WORKS!!!");
-                Log.i(TAG, currentMovie.title);
-            }
-*/
-            //currentMovie = (MovieContent.MovieItem)intent.getSerializableExtra("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem");
 
             mItem = MovieContent.ITEM_MAP.get(getArguments().getString(MOVIE_ID));
             Log.i(TAG, Integer.toString(MovieContent.ITEMS.size()));
