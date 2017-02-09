@@ -1,6 +1,7 @@
 package eu.nikolay_angelov.popularmovies.datafrominternet;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,11 +19,11 @@ public class NetworkUtils {
     final static String TMDB_BASE_URL =
             "https://api.themoviedb.org/3/movie/"; // "https://api.themoviedb.org/3/movie/76341?api_key={api_key}";
 
-    //final static String PARAM_QUERY = "q";
     final static String PARAM_API_KEY = "api_key";
     final static String FOLDER_POPULAR = "popular";
     final static String FOLDER_TOP_RATED = "top_rated";
     final static String API_KEY = ""; // // TODO: 2/7/2017  Remove before commiting to GitHub
+    private static final String TAG = "NetworkUtils";
 
     public enum MOVIE_SORT {
         MOST_POPULAR, TOP_RATED
@@ -52,11 +53,14 @@ public class NetworkUtils {
                 builtUri = Uri.parse(TMDB_BASE_URL + "popular").buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
+
+                Log.i(TAG, TMDB_BASE_URL + "popular");
                 break;
             case TOP_RATED:
                 builtUri = Uri.parse(TMDB_BASE_URL + "top_rated").buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
+                Log.i(TAG, TMDB_BASE_URL + "top_rated");
                 break;
         }
 

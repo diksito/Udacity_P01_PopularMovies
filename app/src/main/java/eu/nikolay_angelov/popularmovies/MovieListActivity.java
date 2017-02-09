@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -57,6 +58,22 @@ public class MovieListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_sortByTopRated) {
+            gridView.setAdapter(null);
+            makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.TOP_RATED);
+            return true;
+
+        } else if (id == R.id.action_sortByMostPopular) {
+            gridView.setAdapter(null);
+            makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.MOST_POPULAR);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
