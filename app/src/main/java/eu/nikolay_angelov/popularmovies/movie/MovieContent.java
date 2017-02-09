@@ -1,5 +1,8 @@
 package eu.nikolay_angelov.popularmovies.movie;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +11,14 @@ import java.util.Map;
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
  */
+
+
 public class MovieContent {
+
+    public MovieContent(int size) {
+        COUNT = size;
+    }
 
     /**
      * An array of sample (movie) items.
@@ -23,7 +30,7 @@ public class MovieContent {
      */
     public static final Map<String, MovieItem> ITEM_MAP = new HashMap<String, MovieItem>();
 
-    private static final int COUNT = 25;
+    private static int COUNT = 0;
 
     static {
         // Add some sample items.
@@ -32,7 +39,7 @@ public class MovieContent {
         }
     }
 
-    private static void addItem(MovieItem item) {
+    public static void addItem(MovieItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
@@ -53,7 +60,7 @@ public class MovieContent {
     /**
      * A movie item representing a piece of content.
      */
-    public static class MovieItem {
+    public static class MovieItem implements Parcelable {
         public final String id;
         public final String content;
         public final String details;
@@ -64,39 +71,111 @@ public class MovieContent {
         public final Double popularity;
         public final String title;
         public final String originalTitle;
-        public  final String originalLanguage;
+        public final String originalLanguage;
+        public final String releasedDate;
 
 
-        public MovieItem(String id, String content, String details, String thumbnailUri, Boolean adult, Double voteAverage, Boolean videoAvailable, Double popularity, String title,  String originalTitle, String originalLanguage) {
+        public MovieItem(String id, String content, String details, String thumbnailUri, Boolean adult, Double voteAverage, Boolean videoAvailable, Double popularity, String title,  String originalTitle, String originalLanguage, String releasedDate) {
             this.id = id;
             this.content = content;
             this.details = details;
-            this.thumbnailUri = thumbnailUri;
+            this.thumbnailUri = "http://image.tmdb.org/t/p/w154/" + thumbnailUri;
             this.adult = adult;
             this.voteAverage = voteAverage;
             this.videoAvailable = videoAvailable;
             this.popularity = popularity;
             this.title = title;
             this.originalTitle = originalTitle;
-            this.originalTitle = originalLanguage;
+            this.originalLanguage = originalLanguage;
+            this.releasedDate = releasedDate;
         }
 
+        public String getId()
+        {
+            return  this.id;
+        }
         public MovieItem(String id, String content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;
+            this.thumbnailUri = "";
+            this.adult = false;
+            this.voteAverage = 0.0;
+            this.videoAvailable = false;
+            this.popularity = 0.0;
+            this.title = "";
+            this.originalTitle = "";
+            this.originalLanguage = "";
+            this.releasedDate = "";
         }
 
         public MovieItem(String id, String content, String details, String thumbnailUri) {
             this.id = id;
             this.content = content;
             this.details = details;
-            this.thumbnailUri = thumbnailUri;
+            this.thumbnailUri = "http://image.tmdb.org/t/p/w154/" + thumbnailUri;
+            this.adult = false;
+            this.voteAverage = 0.0;
+            this.videoAvailable = false;
+            this.popularity = 0.0;
+            this.title = "";
+            this.originalTitle = "";
+            this.originalLanguage = "";
+            this.releasedDate = "";
         }
 
+        public MovieItem(Parcel in) {
+            this.id = in.readString();
+            this.title = in.readString();
+            this.content = in.readString();
+            this.details = in.readString();
+            this.thumbnailUri = in.readString();
+            this.voteAverage = in.readDouble();
+            this.popularity = in.readDouble();
+            this.originalTitle = in.readString();
+            this.originalLanguage = in.readString();
+            this.releasedDate = in.readString();
+
+            this.adult = in.readByte() != 0;
+            this.videoAvailable = in.readByte() != 0;
+
+        }
         @Override
         public String toString() {
             return content;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+
+            parcel.writeString(this.id);
+            parcel.writeString(this.title);
+            parcel.writeString(this.content);
+            parcel.writeString(this.details);
+            parcel.writeString(this.thumbnailUri);
+            parcel.writeDouble(this.voteAverage);
+            parcel.writeDouble(this.popularity);
+            parcel.writeString(this.originalTitle);
+            parcel.writeString(this.originalLanguage);
+            parcel.writeString(this.releasedDate);
+
+            parcel.writeByte((byte) (this.adult ? 1 : 0));
+            parcel.writeByte((byte) (this.videoAvailable ? 1 : 0));
+        }
+
+        public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+            public MovieItem createFromParcel(Parcel in) {
+                return new MovieItem(in);
+            }
+
+            public MovieItem[] newArray(int size) {
+                return new MovieItem[size];
+            }
+        };
     }
 }

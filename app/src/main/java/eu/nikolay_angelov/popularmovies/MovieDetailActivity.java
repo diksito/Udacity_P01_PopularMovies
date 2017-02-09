@@ -2,13 +2,17 @@ package eu.nikolay_angelov.popularmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+
+import eu.nikolay_angelov.popularmovies.movie.MovieContent;
 
 /**
  * An activity representing a single Movie detail screen. This
@@ -18,6 +22,8 @@ import android.view.MenuItem;
  */
 public class MovieDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = "MovieDetailActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +31,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        */
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -52,9 +60,28 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
+            Intent intent = getIntent();
+
+            Bundle b = intent.getExtras();
+            MovieContent.MovieItem currentMovie = null;
+            if (b != null) {
+                currentMovie = b.getParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem");
+                //Log.i(TAG, currentMovie.toString());
+            }
+
+            //int id = intent.getIntExtra(MovieDetailFragment.ARG_ITEM_ID, 0);
+            //String movieId = intent.getStringExtra(MovieDetailFragment.MOVIE_ID);
+            ///intent.getIn
+            //MovieDetailFragment.ARG_ITEM_ID
+            //Log.i(TAG, "ID:" +Integer.toString(id));
+            //Log.i(TAG, movieId);
+
+
             Bundle arguments = new Bundle();
-            arguments.putString(MovieDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(MovieDetailFragment.ARG_ITEM_ID));
+
+            arguments.putParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem", (Parcelable) currentMovie);
+            arguments.putString(MovieDetailFragment.MOVIE_ID,currentMovie.id);
+
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
