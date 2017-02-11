@@ -16,13 +16,13 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MovieDetailActivity"
             android:label="@string/title_movie_detail"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MovieListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -30,5 +30,4 @@
                 android:value="eu.nikolay_angelov.popularmovies.MovieListActivity" />
         </activity>
     </application>
-
 </manifest>

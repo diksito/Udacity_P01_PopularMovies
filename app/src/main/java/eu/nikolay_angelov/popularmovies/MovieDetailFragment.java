@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,10 +60,7 @@ public class MovieDetailFragment extends Fragment {
 
             MovieContent.MovieItem currentMovie = null;
             if (b != null) {
-                currentMovie = b.getParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem");
-                Log.i(TAG, "ARRIVED");
-            } else {
-                Log.i(TAG, "empty");
+                currentMovie = b.getParcelable(MovieContent.MovieItem.TAG);
             }
 
             mItem = MovieContent.ITEM_MAP.get(getArguments().getString(MOVIE_ID));
@@ -80,11 +78,24 @@ public class MovieDetailFragment extends Fragment {
             TextView releasedYear = (TextView)activity.findViewById(R.id.movie_released_date);
             releasedYear.setText(currentMovie.releasedDate.toString());
 
+            EditText overview = (EditText)activity.findViewById(R.id.movie_overview);
+            overview.setText(currentMovie.content.toString());
+            overview.setEnabled(false);
+
             if (appBarLayout != null) {
                 appBarLayout.setTitle(currentMovie.title);
-
             }
+
+            setRetainInstance(true);
         }
+    }
+
+    public void setData(MovieContent.MovieItem data) {
+        this.mItem = data;
+    }
+
+    public MovieContent.MovieItem getData() {
+        return mItem;
     }
 
     @Override

@@ -40,7 +40,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,21 +50,32 @@
             android:layout_height="240dp"
             android:adjustViewBounds="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="180dp"
-            android:textSize="22dp"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/movie_vote"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="200dp"
-            android:textSize="22dp"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/movie_released_date"/>
-    </GridLayout>
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="180dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="22dp"
+                android:layout_alignRight="@+id/movie_thumbnail"
+                android:id="@+id/movie_vote"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="22dp"
+                android:id="@+id/movie_released_date"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/movie_overview" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -39,6 +39,10 @@ public class MovieContent {
         }
     }
 
+    public static void clear() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
     public static void addItem(MovieItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
@@ -61,6 +65,9 @@ public class MovieContent {
      * A movie item representing a piece of content.
      */
     public static class MovieItem implements Parcelable {
+
+        public static final String TAG = "eu.nikolay_angelov.popularmovies.MovieContent.MovieItem";
+
         public final String id;
         public final String content;
         public final String details;

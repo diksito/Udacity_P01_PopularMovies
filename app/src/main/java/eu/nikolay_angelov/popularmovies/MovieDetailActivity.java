@@ -1,6 +1,9 @@
 package eu.nikolay_angelov.popularmovies;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +26,14 @@ import eu.nikolay_angelov.popularmovies.movie.MovieContent;
 public class MovieDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "MovieDetailActivity";
+    private static final String TAG_RETAINED_FRAGMENT = "RetainedFragment";
+
+    private Fragment mMovieDetailFragment;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +65,12 @@ public class MovieDetailActivity extends AppCompatActivity {
             Bundle b = intent.getExtras();
             MovieContent.MovieItem currentMovie = null;
             if (b != null) {
-                currentMovie = b.getParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem");
+                currentMovie = b.getParcelable(MovieContent.MovieItem.TAG);
             }
 
             Bundle arguments = new Bundle();
 
-            arguments.putParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem", (Parcelable) currentMovie);
+            arguments.putParcelable(MovieContent.MovieItem.TAG, (Parcelable) currentMovie);
             arguments.putString(MovieDetailFragment.MOVIE_ID,currentMovie.id);
 
             MovieDetailFragment fragment = new MovieDetailFragment();

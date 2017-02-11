@@ -63,13 +63,15 @@ public class MovieListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        MovieAdapter mAdapter = (MovieAdapter)gridView.getAdapter();
+
         if (id == R.id.action_sortByTopRated) {
-            gridView.setAdapter(null);
+            mAdapter.clear();
             makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.TOP_RATED);
             return true;
 
         } else if (id == R.id.action_sortByMostPopular) {
-            gridView.setAdapter(null);
+            mAdapter.clear();
             makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.MOST_POPULAR);
             return true;
         }
@@ -103,7 +105,7 @@ public class MovieListActivity extends AppCompatActivity {
 
                 Bundle b = new Bundle();
 
-                b.putParcelable("eu.nikolay_angelov.popularmovies.MovieContent.MovieItem", (Parcelable) selectedMovie);
+                b.putParcelable(MovieContent.MovieItem.TAG, (Parcelable) selectedMovie);
 
                 intent.putExtras(b);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -119,6 +121,7 @@ public class MovieListActivity extends AppCompatActivity {
             MovieContent content = null;
 
             URL searchUrl = params[0];
+            Log.i(TAG, searchUrl.toString());
             String jsonResponse = null;
             try {
                 jsonResponse = NetworkUtils.getResponseFromHttpUrl(searchUrl);
@@ -127,22 +130,20 @@ public class MovieListActivity extends AppCompatActivity {
             }
             if(jsonResponse != null) {
                 JsonParser parser = new JsonParser(jsonResponse);
-                Log.i("JSON PARSER", jsonResponse);
                 try {
                     content = parser.Parse();
-                    Log.i("JSON PARSER", "passed parsing");
+                    Log.i(TAG, "passed parsing");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("JSON PARSER", e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
-
             return content;
         }
         @Override
-        protected void onPostExecute(MovieContent githubSearchResults) {
-            if (githubSearchResults != null) {
-                gridView.setAdapter(new MovieAdapter(getApplicationContext(), githubSearchResults));
+        protected void onPostExecute(MovieContent movieSearchResults) {
+            if (movieSearchResults != null) {
+                gridView.setAdapter(new MovieAdapter(getApplicationContext(), movieSearchResults));
             }
         }
     }
@@ -151,7 +152,6 @@ public class MovieListActivity extends AppCompatActivity {
         URL remoteUrl = NetworkUtils.buildUrl(type);
         new MovieDBQueryTask().execute(remoteUrl);
     }
-
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(MovieContent.ITEMS));
@@ -226,7 +226,6 @@ public class MovieListActivity extends AppCompatActivity {
             }
         }
     }
-
 }
 
 

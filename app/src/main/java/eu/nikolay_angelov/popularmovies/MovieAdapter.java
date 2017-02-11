@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 import eu.nikolay_angelov.popularmovies.movie.MovieContent;
@@ -34,16 +32,23 @@ public class MovieAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    public void clear() {
+        this.content.ITEMS.clear();
+        this.content.ITEM_MAP.clear();
+    }
 
     @Override
     public int getCount() {
         return adapterSize;
     }
+    public void update(MovieContent content) {
+        this.content = null;
+        this.content = content;
+    }
 
     @Override
     public Object getItem(int i) {
         return content.ITEMS.get(i);
-        //return 1;
     }
 
     @Override
@@ -59,9 +64,7 @@ public class MovieAdapter extends BaseAdapter {
         View gridView;
 
         if (view == null) {
-
             gridView = new View(context);
-
             gridView = inflater.inflate(R.layout.movie_grid_item, null);
 
             // set image based on selected text
@@ -69,9 +72,7 @@ public class MovieAdapter extends BaseAdapter {
                     .findViewById(R.id.grid_item_image);
 
             Log.i(TAG, content.ITEMS.get(i).thumbnailUri);
-
             Picasso.with(context).load(content.ITEMS.get(i).thumbnailUri).into(imageView);
-
         } else {
             gridView = (View) view;
         }

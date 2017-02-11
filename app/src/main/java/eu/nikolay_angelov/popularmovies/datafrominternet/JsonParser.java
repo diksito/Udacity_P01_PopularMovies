@@ -14,6 +14,8 @@ import eu.nikolay_angelov.popularmovies.movie.MovieContent;
 
 public class JsonParser {
 
+    public static final String TAG = "JsonParser";
+
     private static final String TAG_RESULTS = "results";
     private static final String TAG_POSTER_PATH = "poster_path";
     private static final String TAG_ADULT = "adult";
