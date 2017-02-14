@@ -66,16 +66,16 @@ public class MovieAdapter extends BaseAdapter {
         if (view == null) {
             gridView = new View(context);
             gridView = inflater.inflate(R.layout.movie_grid_item, null);
-
-            // set image based on selected text
-            ImageView imageView = (ImageView) gridView
-                    .findViewById(R.id.grid_item_image);
-
-            Log.i(TAG, content.ITEMS.get(i).thumbnailUri);
-            Picasso.with(context).load(content.ITEMS.get(i).thumbnailUri).into(imageView);
         } else {
             gridView = (View) view;
         }
+
+        // set image based on selected text
+        ImageView imageView = (ImageView) gridView
+                .findViewById(R.id.grid_item_image);
+
+        Log.i(TAG, content.ITEMS.get(i).thumbnailUri);
+        Picasso.with(context).load(content.ITEMS.get(i).thumbnailUri).into(imageView);
 
         return gridView;
     }

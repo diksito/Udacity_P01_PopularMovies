@@ -68,13 +68,18 @@
                 android:textSize="22dp"
                 android:id="@+id/movie_released_date"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/movie_overview" />
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/movie_overview" />
+            </ScrollView>
+
         </LinearLayout>
     </RelativeLayout>
 

@@ -70,6 +70,7 @@ public class MovieDetailFragment extends Fragment {
 
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             ImageView movieThumb = (ImageView) activity.findViewById(R.id.movie_thumbnail);
+
             Picasso.with(activity.getBaseContext()).load(currentMovie.thumbnailUri).into(movieThumb);
 
             TextView voteAverage = (TextView)activity.findViewById(R.id.movie_vote);
