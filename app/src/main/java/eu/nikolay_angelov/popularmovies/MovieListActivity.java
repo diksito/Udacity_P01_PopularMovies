@@ -66,12 +66,17 @@ public class MovieListActivity extends AppCompatActivity {
         MovieAdapter mAdapter = (MovieAdapter)gridView.getAdapter();
 
         if (id == R.id.action_sortByTopRated) {
-            mAdapter.clear();
+            if(mAdapter != null) {
+                mAdapter.clear();
+            }
             makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.TOP_RATED);
+
             return true;
 
         } else if (id == R.id.action_sortByMostPopular) {
-            mAdapter.clear();
+            if(mAdapter != null) {
+                mAdapter.clear();
+            }
             makeMovieDbSearchQuery(NetworkUtils.MOVIE_SORT.MOST_POPULAR);
             return true;
         }
