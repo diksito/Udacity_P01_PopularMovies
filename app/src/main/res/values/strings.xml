@@ -3,4 +3,7 @@
     <string name="title_movie_detail">Movie Detail</string>
     <string name="title_sort_by_most_popular">Sort by Most Popular</string>
     <string name="title_sort_by_top_rated">Sort by Top Rated</string>
+    <string name="title_sort_by_favourites">Sort by my Favourites</string>
+    <string name="title_movie_reviews">Reviews</string>
+    <string name="button_favourite">Favourite</string>
 </resources>

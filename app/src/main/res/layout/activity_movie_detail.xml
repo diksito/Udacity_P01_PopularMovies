@@ -81,6 +81,33 @@
             </ScrollView>
 
         </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/movie_reviews"
+            android:layout_marginTop="39dp"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="@string/title_movie_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:id="@+id/textView"
+            android:layout_marginTop="59dp"
+            android:layout_below="@+id/movie_thumbnail"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:text="@string/button_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_favourite"
+            android:layout_below="@+id/movie_thumbnail"
+            android:onClick="favouriteMovieClick"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

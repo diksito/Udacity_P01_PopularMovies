@@ -22,11 +22,13 @@ public class NetworkUtils {
     final static String PARAM_API_KEY = "api_key";
     final static String FOLDER_POPULAR = "popular";
     final static String FOLDER_TOP_RATED = "top_rated";
+    final static String PARAM_API_REVIEWS = "reviews";
+    final static String PARAM_API_VIDEOS = "videos";
     final static String API_KEY = ""; // // TODO: 2/7/2017  Remove before commiting to GitHub
     private static final String TAG = "NetworkUtils";
 
     public enum MOVIE_SORT {
-        MOST_POPULAR, TOP_RATED
+        MOST_POPULAR, TOP_RATED, MY_FAVOURTIES
     }
 
     /**
@@ -53,6 +55,13 @@ public class NetworkUtils {
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
                 Log.i(TAG, TMDB_BASE_URL + "top_rated");
+                break;
+            case MY_FAVOURTIES:
+                // todo: query from here all favourited videos with theid ids
+                builtUri = Uri.parse(TMDB_BASE_URL + "top_rated").buildUpon()
+                        .appendQueryParameter(PARAM_API_KEY, API_KEY)
+                        .build();
+                Log.i(TAG, TMDB_BASE_URL + "my favourites");
                 break;
         }
 

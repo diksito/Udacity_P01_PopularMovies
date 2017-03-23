@@ -29,5 +29,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eu.nikolay_angelov.popularmovies.MovieListActivity" />
         </activity>
+
+        <provider
+            android:name="eu.nikolay_angelov.popularmovies.data.MovieContentProvider"
+            android:authorities="eu.nikolay_angelov.popularmovies"
+            android:exported="false"/>
     </application>
 </manifest>

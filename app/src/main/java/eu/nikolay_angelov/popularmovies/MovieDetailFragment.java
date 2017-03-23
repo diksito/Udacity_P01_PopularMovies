@@ -1,7 +1,9 @@
 package eu.nikolay_angelov.popularmovies;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,12 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import eu.nikolay_angelov.popularmovies.data.MovieContact;
 import eu.nikolay_angelov.popularmovies.movie.MovieContent;
 
 /**
@@ -36,6 +41,7 @@ public class MovieDetailFragment extends Fragment {
      * The movie content this fragment is presenting.
      */
     private MovieContent.MovieItem mItem;
+    public static MovieContent.MovieItem currentMovie = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,7 +64,7 @@ public class MovieDetailFragment extends Fragment {
 
             Bundle b = intent.getExtras();
 
-            MovieContent.MovieItem currentMovie = null;
+
             if (b != null) {
                 currentMovie = b.getParcelable(MovieContent.MovieItem.TAG);
             }
@@ -86,6 +92,39 @@ public class MovieDetailFragment extends Fragment {
             if (appBarLayout != null) {
                 appBarLayout.setTitle(currentMovie.title);
             }
+
+            Button clickButton = (Button) activity.findViewById(R.id.button_favourite);
+            clickButton.setOnClickListener( new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+
+                    Log.i(TAG, "clicked...." + currentMovie.title);
+
+                    // Insert new task data via a ContentResolver
+                    // Create new empty ContentValues object
+                    ContentValues contentValues = new ContentValues();
+                    // Put the task description and selected mPriority into the ContentValues
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_TITLE, currentMovie.title);
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_THUMB_PATH, currentMovie.thumbnailUri);
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_IMDB_ID, currentMovie.id);
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_VOTE_COUNT, currentMovie.voteAverage);
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_POPULARITY, currentMovie.popularity);
+                    // Insert the content values via a ContentResolver
+
+                    Uri uri = v.getContext().getContentResolver().insert(MovieContact.MovieEntry.CONTENT_URI, contentValues);
+
+                    // Display the URI that's returned with a Toast
+                    // [Hint] Don't forget to call finish() to return to MainActivity after this insert is complete
+                    if(uri != null) {
+                        Toast.makeText(v.getContext(), uri.toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                    // Finish activity (this returns back to MainActivity)
+                    //finish();
+                }
+            });
 
             setRetainInstance(true);
         }

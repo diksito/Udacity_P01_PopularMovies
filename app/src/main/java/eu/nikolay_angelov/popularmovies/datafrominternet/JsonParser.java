@@ -37,6 +37,8 @@ public class JsonParser {
         this.json = json;
     }
 
+//    public void
+
     public MovieContent Parse() throws JSONException {
 
         JSONObject jsonObj = new JSONObject(this.json);
