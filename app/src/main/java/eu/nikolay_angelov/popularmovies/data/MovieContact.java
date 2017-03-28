@@ -29,9 +29,31 @@ public class MovieContact {
 
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_IMDB_ID = "imdb_id";
-        public static final String COLUMN_VOTE_COUNT = "vote_count";
+        public static final String COLUMN_VOTE_COUNT = "vote_average";
         public static final String COLUMN_POPULARITY = "popularity";
-        public static final String COLUMN_THUMB_PATH = "thumbnail_path";
+        public static final String COLUMN_THUMB_PATH = "thumbnail_uri";
+        public static final String COLUMN_ADULT = "adult";
+        public static final String COLUMN_VIDEO_AVAILABLE = "video_available";
+        public static final String COLUMN_ORIGINAL_TITLE = "original_title";
+        public static final String COLUMN_ORIGINAL_LANG = "original_language";
+        public static final String COLUMN_RELEASED_DATE = "released_date";
+        public static final String COLUMN_CONTENT = "content";
+
+
+        /*
+        public final String id;
+        public final String content;
+        public final String details;
+        public final String thumbnailUri;
+        public final Boolean adult;
+        public final Double voteAverage;
+        public final Boolean videoAvailable;
+        public final Double popularity;
+        public final String title;
+        public final String originalTitle;
+        public final String originalLanguage;
+        public final String releasedDate;
+         */
 
     }
 }

@@ -111,6 +111,23 @@ public class MovieDetailFragment extends Fragment {
                     contentValues.put(MovieContact.MovieEntry.COLUMN_IMDB_ID, currentMovie.id);
                     contentValues.put(MovieContact.MovieEntry.COLUMN_VOTE_COUNT, currentMovie.voteAverage);
                     contentValues.put(MovieContact.MovieEntry.COLUMN_POPULARITY, currentMovie.popularity);
+
+                    if(currentMovie.adult)
+                        contentValues.put(MovieContact.MovieEntry.COLUMN_ADULT, 1);
+                    else
+                        contentValues.put(MovieContact.MovieEntry.COLUMN_ADULT, 0);
+
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_ORIGINAL_LANG, currentMovie.originalLanguage);
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_ORIGINAL_TITLE, currentMovie.originalTitle);
+
+                    if(currentMovie.videoAvailable)
+                        contentValues.put(MovieContact.MovieEntry.COLUMN_VIDEO_AVAILABLE, 1);
+                    else
+                        contentValues.put(MovieContact.MovieEntry.COLUMN_VIDEO_AVAILABLE, 0);
+
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_CONTENT, currentMovie.content);
+                    contentValues.put(MovieContact.MovieEntry.COLUMN_RELEASED_DATE, currentMovie.releasedDate);
+
                     // Insert the content values via a ContentResolver
 
                     Uri uri = v.getContext().getContentResolver().insert(MovieContact.MovieEntry.CONTENT_URI, contentValues);

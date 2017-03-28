@@ -24,6 +24,7 @@ public class NetworkUtils {
     final static String FOLDER_TOP_RATED = "top_rated";
     final static String PARAM_API_REVIEWS = "reviews";
     final static String PARAM_API_VIDEOS = "videos";
+    final static String VIDEO_ID = "video_id";
     final static String API_KEY = ""; // // TODO: 2/7/2017  Remove before commiting to GitHub
     private static final String TAG = "NetworkUtils";
 

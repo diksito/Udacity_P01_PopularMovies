@@ -1,5 +1,6 @@
 package eu.nikolay_angelov.popularmovies.movie;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import eu.nikolay_angelov.popularmovies.data.MovieContact;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -81,7 +84,6 @@ public class MovieContent {
         public final String originalLanguage;
         public final String releasedDate;
 
-
         public MovieItem(String id, String content, String details, String thumbnailUri, Boolean adult, Double voteAverage, Boolean videoAvailable, Double popularity, String title,  String originalTitle, String originalLanguage, String releasedDate) {
             this.id = id;
             this.content = content;
@@ -95,6 +97,32 @@ public class MovieContent {
             this.originalTitle = originalTitle;
             this.originalLanguage = originalLanguage;
             this.releasedDate = releasedDate;
+        }
+
+        public MovieItem(Cursor cursor) {
+            this.id = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_IMDB_ID));
+            this.content = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_CONTENT));
+            this.details = "";
+            this.thumbnailUri = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_THUMB_PATH));
+
+            if(cursor.getInt(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_ADULT)) == 1)
+               this.adult = true;
+            else
+                this.adult = false;
+
+            this.voteAverage = cursor.getDouble(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_VOTE_COUNT));
+            this.popularity = cursor.getDouble(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_POPULARITY));
+
+            if(cursor.getInt(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_VIDEO_AVAILABLE)) == 1)
+                this.videoAvailable = true;
+            else
+                this.videoAvailable = false;
+
+            this.title = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_TITLE));
+            this.originalTitle = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_ORIGINAL_TITLE));
+
+            this.originalLanguage = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_ORIGINAL_LANG));
+            this.releasedDate = cursor.getString(cursor.getColumnIndex(MovieContact.MovieEntry.COLUMN_RELEASED_DATE));
         }
 
         public String getId()

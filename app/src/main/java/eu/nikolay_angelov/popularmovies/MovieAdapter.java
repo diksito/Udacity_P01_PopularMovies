@@ -1,6 +1,7 @@
 package eu.nikolay_angelov.popularmovies;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
+import eu.nikolay_angelov.popularmovies.data.MovieContact;
 import eu.nikolay_angelov.popularmovies.movie.MovieContent;
 
 /**
@@ -41,9 +43,30 @@ public class MovieAdapter extends BaseAdapter {
     public int getCount() {
         return adapterSize;
     }
+
     public void update(MovieContent content) {
         this.content = null;
         this.content = content;
+    }
+
+    public void update(Cursor mCursor) {
+        this.content = null;
+
+        Log.i(TAG, "Iterate over cursor");
+        try{
+            this.content = new MovieContent(mCursor.getCount());
+            Log.i(TAG, "Cursor items " + mCursor.getCount());
+
+            while (mCursor.moveToNext()) {
+                MovieContent.MovieItem mItem = new MovieContent.MovieItem(mCursor);
+                this.content.addItem(mItem);
+                Log.i(TAG, mItem.title);
+            }
+            Log.i(TAG, "data populated");
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
     }
 
     @Override
@@ -74,8 +97,10 @@ public class MovieAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) gridView
                 .findViewById(R.id.grid_item_image);
 
-        Log.i(TAG, content.ITEMS.get(i).thumbnailUri);
-        Picasso.with(context).load(content.ITEMS.get(i).thumbnailUri).into(imageView);
+        if(i < content.ITEMS.size()) {
+            Log.i(TAG, content.ITEMS.get(i).thumbnailUri);
+            Picasso.with(context).load(content.ITEMS.get(i).thumbnailUri).into(imageView);
+        }
 
         return gridView;
     }
