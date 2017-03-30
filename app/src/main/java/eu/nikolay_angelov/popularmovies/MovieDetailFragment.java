@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 import eu.nikolay_angelov.popularmovies.data.MovieContact;
 import eu.nikolay_angelov.popularmovies.datafrominternet.NetworkUtils;
@@ -53,6 +55,9 @@ public class MovieDetailFragment extends Fragment {
      */
     private MovieContent.MovieItem mItem;
     public static MovieContent.MovieItem currentMovie = null;
+    private ReviewAdapter reviewAdapter = null;
+    private TrailerAdapter trailerAdapter = null;
+    public static ListView trailerListView = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,6 +75,8 @@ public class MovieDetailFragment extends Fragment {
             // Load the movie content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
+
+            this.trailerListView = (ListView)this.getActivity().findViewById(R.id.movie_trailers_listview);
 
             Intent intent = this.getActivity().getIntent();
 
@@ -99,6 +106,14 @@ public class MovieDetailFragment extends Fragment {
             EditText overview = (EditText)activity.findViewById(R.id.movie_overview);
             overview.setText(currentMovie.content.toString());
             overview.setEnabled(false);
+
+
+            // trailers & reviews
+            URL remoteUrl = NetworkUtils.buildUrl(NetworkUtils.VIDEO_DATA.REVIEWS, currentMovie.getId());
+            new ReviewsQueryTask().execute(remoteUrl);
+
+            URL trailerRemoteUrl = NetworkUtils.buildUrl(NetworkUtils.VIDEO_DATA.TRAILERS, currentMovie.getId());
+            new TrailerQueryTask().execute(trailerRemoteUrl);
 
             if (appBarLayout != null) {
                 appBarLayout.setTitle(currentMovie.title);
@@ -205,13 +220,10 @@ public class MovieDetailFragment extends Fragment {
             return content;
         }
         @Override
-        protected void onPostExecute(TrailerContent movieSearchResults) {
-            // update adapter
-            /*
-            if (movieSearchResults != null) {
-                gridView.setAdapter(new MovieAdapter(getApplicationContext(), movieSearchResults));
+        protected void onPostExecute(TrailerContent trailerData) {
+            if (trailerData != null) {
+                trailerListView.setAdapter(new TrailerAdapter(getActivity().getApplicationContext(), trailerData));
             }
-            */
         }
     }
     public class ReviewsQueryTask extends AsyncTask<URL, Void, ReviewContent> {

@@ -2,7 +2,6 @@ package eu.nikolay_angelov.popularmovies.datafrominternet;
 
 import android.net.Uri;
 import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -32,12 +31,46 @@ public class NetworkUtils {
         MOST_POPULAR, TOP_RATED, MY_FAVOURTIES
     }
 
+    public enum VIDEO_DATA {
+        REVIEWS, TRAILERS
+    }
+
     /**
      * Builds the URL used to query Github.
      *
      * @param sort The keyword that will be queried for.
      * @return The URL to use to query the weather server.
      */
+
+    public static URL buildUrl(VIDEO_DATA sort, String videoId) {
+
+        Uri builtUri = null;
+
+        switch (sort) {
+            case REVIEWS:
+                builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/videos").buildUpon()
+                        .appendQueryParameter(PARAM_API_KEY, API_KEY)
+                        .build();
+
+                Log.i(TAG,TMDB_BASE_URL + videoId + "/videos");
+                break;
+            case TRAILERS:
+                builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/reviews").buildUpon()
+                        .appendQueryParameter(PARAM_API_KEY, API_KEY)
+                        .build();
+                Log.i(TAG, TMDB_BASE_URL + videoId + "/reviews");
+                break;
+        }
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
 
     public static URL buildUrl(MOVIE_SORT sort) {
 

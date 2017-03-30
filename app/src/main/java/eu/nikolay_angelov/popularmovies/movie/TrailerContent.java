@@ -21,4 +21,8 @@ public  class TrailerContent{
     public  void clear() {
         this.trailerItems.clear();
     }
+
+    public TrailerItem getItem(int position) {
+        return this.trailerItems.get(position);
+    }
 }

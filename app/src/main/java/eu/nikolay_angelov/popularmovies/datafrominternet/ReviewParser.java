@@ -1,5 +1,7 @@
 package eu.nikolay_angelov.popularmovies.datafrominternet;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,15 +35,19 @@ public class ReviewParser {
         JSONObject jsonObj = new JSONObject(this.json);
         JSONArray reviews = jsonObj.getJSONArray(TAG_RESULTS);
 
+        Log.i(TAG, reviews.length() + "");
         for (int i = 0; i < reviews.length(); i++) {
             JSONObject currJsonReview = reviews.getJSONObject(i);
 
-            ReviewItem item = new ReviewItem(
-                    currJsonReview.getString(TAG_ID),
-                    currJsonReview.getString(TAG_CONTENT),
-                    currJsonReview.getString(TAG_AUTHOR),
-                    currJsonReview.getString(TAG_URL));
-            this.content.add(item);
+            if(!currJsonReview.isNull(TAG_CONTENT)) {
+                ReviewItem item = new ReviewItem(
+                        currJsonReview.getString(TAG_ID),
+                        currJsonReview.getString(TAG_CONTENT),
+                        currJsonReview.getString(TAG_AUTHOR),
+                        currJsonReview.getString(TAG_URL));
+
+                this.content.add(item);
+            }
         }
 
         return content;

@@ -18,6 +18,9 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.net.URL;
+
+import eu.nikolay_angelov.popularmovies.datafrominternet.NetworkUtils;
 import eu.nikolay_angelov.popularmovies.movie.MovieContent;
 
 /**
@@ -75,6 +78,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             arguments.putParcelable(MovieContent.MovieItem.TAG, (Parcelable) currentMovie);
             arguments.putString(MovieDetailFragment.MOVIE_ID,currentMovie.id);
+
+
 
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);

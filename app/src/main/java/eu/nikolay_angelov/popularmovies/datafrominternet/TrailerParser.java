@@ -1,5 +1,7 @@
 package eu.nikolay_angelov.popularmovies.datafrominternet;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,20 +40,24 @@ public class TrailerParser {
         JSONObject jsonObj = new JSONObject(this.json);
         JSONArray trailers = jsonObj.getJSONArray(TAG_RESULTS);
 
+        Log.i(TAG, trailers.length() + "");
+
         for (int i = 0; i < trailers.length(); i++) {
             JSONObject currJsonTrailer = trailers.getJSONObject(i);
 
-            TrailerItem item = new TrailerItem(
-                    currJsonTrailer.getString(TAG_ID),
-                    currJsonTrailer.getString(TAG_KEY),
-                    currJsonTrailer.getString(TAG_NAME),
-                    currJsonTrailer.getString(TAG_SITE),
-                    currJsonTrailer.getString(TAG_SIZE),
-                    currJsonTrailer.getString(TAG_TYPE),
-                    currJsonTrailer.getString(TAG_ISO_639_1),
-                    currJsonTrailer.getString(TAG_ISO_3166_1));
+            if(!currJsonTrailer.isNull(TAG_KEY)) {
+                TrailerItem item = new TrailerItem(
+                        currJsonTrailer.getString(TAG_ID),
+                        currJsonTrailer.getString(TAG_KEY),
+                        currJsonTrailer.getString(TAG_NAME),
+                        currJsonTrailer.getString(TAG_SITE),
+                        currJsonTrailer.getString(TAG_SIZE),
+                        currJsonTrailer.getString(TAG_TYPE),
+                        currJsonTrailer.getString(TAG_ISO_639_1),
+                        currJsonTrailer.getString(TAG_ISO_3166_1));
 
-            this.content.add(item);
+                this.content.add(item);
+            }
         }
         return this.content;
     }
