@@ -20,4 +20,8 @@ public  class ReviewContent{
     public  void clear() {
         this.reviewItemList.clear();
     }
+
+    public ReviewItem getItem(int position) {
+        return this.reviewItemList.get(position);
+    }
 }

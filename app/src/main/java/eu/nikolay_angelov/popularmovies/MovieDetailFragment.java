@@ -58,6 +58,7 @@ public class MovieDetailFragment extends Fragment {
     private ReviewAdapter reviewAdapter = null;
     private TrailerAdapter trailerAdapter = null;
     public static ListView trailerListView = null;
+    public static ListView reviewListView = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -77,7 +78,7 @@ public class MovieDetailFragment extends Fragment {
             // to load content from a content provider.
 
             this.trailerListView = (ListView)this.getActivity().findViewById(R.id.movie_trailers_listview);
-
+            this.reviewListView = (ListView)this.getActivity().findViewById(R.id.review_listview);
             Intent intent = this.getActivity().getIntent();
 
             Bundle b = intent.getExtras();
@@ -253,9 +254,11 @@ public class MovieDetailFragment extends Fragment {
             return content;
         }
         @Override
-        protected void onPostExecute(ReviewContent movieSearchResults) {
+        protected void onPostExecute(ReviewContent reviewData) {
 
-            super.onPostExecute(movieSearchResults);
+            if(reviewData != null) {
+                reviewListView.setAdapter(new ReviewAdapter(getActivity().getApplicationContext(), reviewData));
+            }
             // update adapter
             /*
             if (movieSearchResults != null) {

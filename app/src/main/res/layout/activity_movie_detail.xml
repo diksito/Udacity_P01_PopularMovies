@@ -67,7 +67,6 @@
                 android:layout_height="30dp"
                 android:textSize="22dp"
                 android:id="@+id/movie_released_date"/>
-
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -78,7 +77,12 @@
                         android:ems="10"
                         android:id="@+id/movie_overview" />
             </ScrollView>
+            <ListView
+                android:layout_width="match_parent"
+                android:id="@+id/review_listview"
+                android:layout_height="match_parent">
 
+            </ListView>
         </LinearLayout>
 
         <ListView
