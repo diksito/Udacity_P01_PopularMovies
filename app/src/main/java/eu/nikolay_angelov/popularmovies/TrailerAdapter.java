@@ -13,6 +13,9 @@ public class TrailerAdapter extends BaseAdapter {
     private static final String TAG = "TrailerAdapter";
     private Context context;
 
+    public TrailerAdapter(Context context) {
+        this.context = context;
+    }
     @Override
     public int getCount() {
         return 0;

@@ -13,6 +13,10 @@ public class ReviewAdapter extends BaseAdapter {
     private static final String TAG = "ReviewAdapter";
     private Context context;
 
+    public ReviewAdapter(Context context) {
+        this.context = context;
+    }
+
     @Override
     public int getCount() {
         return 0;

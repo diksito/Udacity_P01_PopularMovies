@@ -187,6 +187,7 @@ public class MovieListActivity extends AppCompatActivity implements
         }
         Log.i(TAG, "onLoadFinished");
         mAdapter.update(data);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

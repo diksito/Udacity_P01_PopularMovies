@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,8 +20,18 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.URL;
+
 import eu.nikolay_angelov.popularmovies.data.MovieContact;
+import eu.nikolay_angelov.popularmovies.datafrominternet.NetworkUtils;
+import eu.nikolay_angelov.popularmovies.datafrominternet.ReviewParser;
+import eu.nikolay_angelov.popularmovies.datafrominternet.TrailerParser;
 import eu.nikolay_angelov.popularmovies.movie.MovieContent;
+import eu.nikolay_angelov.popularmovies.movie.ReviewContent;
+import eu.nikolay_angelov.popularmovies.movie.TrailerContent;
 
 /**
  * A fragment representing a single Movie detail screen.
@@ -99,8 +110,7 @@ public class MovieDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-
-                    Log.i(TAG, "clicked...." + currentMovie.title);
+                    //Log.i(TAG, "clicked...." + currentMovie.title);
 
                     // Insert new task data via a ContentResolver
                     // Create new empty ContentValues object
@@ -166,5 +176,80 @@ public class MovieDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    public class TrailerQueryTask extends AsyncTask<URL, Void, TrailerContent> {
+
+        @Override
+        protected TrailerContent doInBackground(URL... params) {
+            TrailerContent content = null;
+
+            URL searchUrl = params[0];
+            Log.i(TAG, searchUrl.toString());
+            String jsonResponse = null;
+            try {
+                jsonResponse = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(jsonResponse != null) {
+                TrailerParser parser = new TrailerParser(jsonResponse);
+                try {
+                    content = parser.Parse();
+                    Log.i(TAG, "trailer passed parsing");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+            return content;
+        }
+        @Override
+        protected void onPostExecute(TrailerContent movieSearchResults) {
+            // update adapter
+            /*
+            if (movieSearchResults != null) {
+                gridView.setAdapter(new MovieAdapter(getApplicationContext(), movieSearchResults));
+            }
+            */
+        }
+    }
+    public class ReviewsQueryTask extends AsyncTask<URL, Void, ReviewContent> {
+
+        @Override
+        protected ReviewContent doInBackground(URL... params) {
+            ReviewContent content = null;
+
+            URL searchUrl = params[0];
+            Log.i(TAG, searchUrl.toString());
+            String jsonResponse = null;
+            try {
+                jsonResponse = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(jsonResponse != null) {
+                ReviewParser parser = new ReviewParser(jsonResponse);
+                try {
+                    content = parser.Parse();
+                    Log.i(TAG, "reviews passed parsing");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+            return content;
+        }
+        @Override
+        protected void onPostExecute(ReviewContent movieSearchResults) {
+
+            super.onPostExecute(movieSearchResults);
+            // update adapter
+            /*
+            if (movieSearchResults != null) {
+                gridView.setAdapter(new MovieAdapter(getApplicationContext(), movieSearchResults));
+            }
+            */
+        }
     }
 }
