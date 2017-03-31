@@ -32,6 +32,7 @@ public class TrailerParser {
 
     public TrailerParser(String json) {
         this.json = json;
+        Log.i(TAG, this.json);
         this.content = new TrailerContent();
     }
 
@@ -59,6 +60,7 @@ public class TrailerParser {
                 this.content.add(item);
             }
         }
+        Log.i(TAG, "Size :" + this.content.getSize());
         return this.content;
     }
 }

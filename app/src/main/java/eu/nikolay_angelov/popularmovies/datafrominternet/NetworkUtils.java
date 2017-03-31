@@ -28,7 +28,7 @@ public class NetworkUtils {
     private static final String TAG = "NetworkUtils";
 
     public enum MOVIE_SORT {
-        MOST_POPULAR, TOP_RATED, MY_FAVOURTIES
+        MOST_POPULAR, TOP_RATED
     }
 
     public enum VIDEO_DATA {
@@ -47,14 +47,14 @@ public class NetworkUtils {
         Uri builtUri = null;
 
         switch (sort) {
-            case REVIEWS:
+            case TRAILERS:
                 builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/videos").buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
 
                 Log.i(TAG,TMDB_BASE_URL + videoId + "/videos");
                 break;
-            case TRAILERS:
+            case REVIEWS:
                 builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/reviews").buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
@@ -78,24 +78,17 @@ public class NetworkUtils {
 
         switch (sort) {
             case MOST_POPULAR:
-                builtUri = Uri.parse(TMDB_BASE_URL + "popular").buildUpon()
+                builtUri = Uri.parse(TMDB_BASE_URL + FOLDER_POPULAR).buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
 
                 Log.i(TAG, TMDB_BASE_URL + "popular");
                 break;
             case TOP_RATED:
-                builtUri = Uri.parse(TMDB_BASE_URL + "top_rated").buildUpon()
+                builtUri = Uri.parse(TMDB_BASE_URL + FOLDER_TOP_RATED).buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
                 Log.i(TAG, TMDB_BASE_URL + "top_rated");
-                break;
-            case MY_FAVOURTIES:
-                // todo: query from here all favourited videos with theid ids
-                builtUri = Uri.parse(TMDB_BASE_URL + "top_rated").buildUpon()
-                        .appendQueryParameter(PARAM_API_KEY, API_KEY)
-                        .build();
-                Log.i(TAG, TMDB_BASE_URL + "my favourites");
                 break;
         }
 

@@ -27,6 +27,7 @@ public class ReviewParser {
 
     public ReviewParser(String json) {
         this.json = json;
+        Log.i(TAG, this.json);
         content = new ReviewContent();
     }
 
@@ -49,6 +50,7 @@ public class ReviewParser {
                 this.content.add(item);
             }
         }
+        Log.i(TAG, "Size :" + this.content.getSize());
 
         return content;
     }

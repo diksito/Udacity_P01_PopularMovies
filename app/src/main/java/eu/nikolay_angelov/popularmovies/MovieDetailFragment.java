@@ -223,6 +223,8 @@ public class MovieDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(TrailerContent trailerData) {
             if (trailerData != null) {
+                if(trailerListView == null)
+                    Log.i(TAG, "trailerListView is null");
                 trailerListView.setAdapter(new TrailerAdapter(getActivity().getApplicationContext(), trailerData));
             }
         }

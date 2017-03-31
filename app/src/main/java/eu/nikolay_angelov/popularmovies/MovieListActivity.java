@@ -238,6 +238,7 @@ public class MovieListActivity extends AppCompatActivity implements
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(MovieContent.ITEMS));
     }
 
+
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 

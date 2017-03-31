@@ -25,4 +25,8 @@ public  class TrailerContent{
     public TrailerItem getItem(int position) {
         return this.trailerItems.get(position);
     }
+
+    public int getSize() {
+        return this.trailerItems.size();
+    }
 }

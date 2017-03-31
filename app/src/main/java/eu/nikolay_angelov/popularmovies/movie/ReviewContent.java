@@ -24,4 +24,8 @@ public  class ReviewContent{
     public ReviewItem getItem(int position) {
         return this.reviewItemList.get(position);
     }
+
+    public int getSize() {
+        return this.reviewItemList.size();
+    }
 }
