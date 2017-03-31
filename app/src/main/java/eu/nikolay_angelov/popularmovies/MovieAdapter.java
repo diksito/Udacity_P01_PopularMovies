@@ -52,6 +52,7 @@ public class MovieAdapter extends BaseAdapter {
     public void update(Cursor mCursor) {
         this.content = null;
 
+        this.notifyDataSetChanged();
         Log.i(TAG, "Iterate over cursor");
         try{
             this.content = new MovieContent(mCursor.getCount());
@@ -62,6 +63,7 @@ public class MovieAdapter extends BaseAdapter {
                 this.content.addItem(mItem);
                 Log.i(TAG, mItem.title);
             }
+            this.notifyDataSetChanged();
             Log.i(TAG, "data populated");
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

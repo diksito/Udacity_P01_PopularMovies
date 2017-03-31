@@ -89,7 +89,9 @@ public class MovieListActivity extends AppCompatActivity implements
             if(mAdapter != null) {
                 mAdapter.clear();
             }
+
             getSupportLoaderManager().restartLoader(MOVIE_LOADER_ID, null, MovieListActivity.this);
+            mAdapter.notifyDataSetChanged();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -186,6 +188,8 @@ public class MovieListActivity extends AppCompatActivity implements
             mAdapter.clear();
         }
         Log.i(TAG, "onLoadFinished");
+        mAdapter.clear();
+        mAdapter.notifyDataSetChanged();
         mAdapter.update(data);
         mAdapter.notifyDataSetChanged();
     }
