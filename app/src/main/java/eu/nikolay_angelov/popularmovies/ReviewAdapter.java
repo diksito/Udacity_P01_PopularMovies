@@ -71,8 +71,9 @@ public class ReviewAdapter extends BaseAdapter {
         gridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent youTubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
-                context.startActivity(youTubeIntent);
+                Intent reviewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
+                reviewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(reviewIntent);
             }
         });
 

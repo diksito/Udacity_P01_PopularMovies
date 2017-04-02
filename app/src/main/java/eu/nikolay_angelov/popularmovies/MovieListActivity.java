@@ -51,6 +51,7 @@ public class MovieListActivity extends AppCompatActivity implements
     private MovieAdapter mAdapter = null;
 
     private static final int MOVIE_LOADER_ID = 0;
+    private static int gridViewCurrentIndex = 0;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -98,6 +99,13 @@ public class MovieListActivity extends AppCompatActivity implements
     }
 
     @Override
+    protected void onPause() {
+        gridViewCurrentIndex = gridView.getFirstVisiblePosition();
+        Log.i(TAG, "onPause Index position:" + gridViewCurrentIndex);
+        super.onPause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -132,6 +140,9 @@ public class MovieListActivity extends AppCompatActivity implements
 
             }
         });
+
+        // bug fix: suggested by reviewer
+        gridView.setSelection(gridViewCurrentIndex);
     }
 
     @Override
@@ -186,12 +197,13 @@ public class MovieListActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if(mAdapter != null) {
             mAdapter.clear();
+            mAdapter.clear();
+            mAdapter.notifyDataSetChanged();
+            mAdapter.update(data);
+            mAdapter.notifyDataSetChanged();
+
         }
         Log.i(TAG, "onLoadFinished");
-        mAdapter.clear();
-        mAdapter.notifyDataSetChanged();
-        mAdapter.update(data);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

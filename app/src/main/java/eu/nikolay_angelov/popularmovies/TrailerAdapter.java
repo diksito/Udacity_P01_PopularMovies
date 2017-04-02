@@ -72,6 +72,7 @@ public class TrailerAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent youTubeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+item.getKey()));
+                youTubeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(youTubeIntent);
             }
         });

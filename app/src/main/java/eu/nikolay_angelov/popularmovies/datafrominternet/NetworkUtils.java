@@ -48,17 +48,17 @@ public class NetworkUtils {
 
         switch (sort) {
             case TRAILERS:
-                builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/videos").buildUpon()
+                builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/" + PARAM_API_VIDEOS).buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
 
-                Log.i(TAG,TMDB_BASE_URL + videoId + "/videos");
+                Log.i(TAG,TMDB_BASE_URL + videoId + "/" + PARAM_API_VIDEOS);
                 break;
             case REVIEWS:
-                builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/reviews").buildUpon()
+                builtUri = Uri.parse(TMDB_BASE_URL + videoId + "/" + PARAM_API_REVIEWS).buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
-                Log.i(TAG, TMDB_BASE_URL + videoId + "/reviews");
+                Log.i(TAG, TMDB_BASE_URL + videoId + "/" + PARAM_API_REVIEWS);
                 break;
         }
 
@@ -82,13 +82,13 @@ public class NetworkUtils {
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
 
-                Log.i(TAG, TMDB_BASE_URL + "popular");
+                Log.i(TAG, TMDB_BASE_URL + FOLDER_POPULAR);
                 break;
             case TOP_RATED:
                 builtUri = Uri.parse(TMDB_BASE_URL + FOLDER_TOP_RATED).buildUpon()
                         .appendQueryParameter(PARAM_API_KEY, API_KEY)
                         .build();
-                Log.i(TAG, TMDB_BASE_URL + "top_rated");
+                Log.i(TAG, TMDB_BASE_URL + FOLDER_TOP_RATED);
                 break;
         }
 
