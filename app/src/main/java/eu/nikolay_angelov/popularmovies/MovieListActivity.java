@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.FileObserver;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
@@ -151,6 +152,7 @@ public class MovieListActivity extends AppCompatActivity implements
 
             // Initialize a Cursor, this will hold all the task data
             Cursor mMovieData = null;
+            private FileObserver mFileObserver;
 
             // onStartLoading() is called when a loader first starts loading data
             @Override
@@ -161,6 +163,13 @@ public class MovieListActivity extends AppCompatActivity implements
                 } else {
                     // Force a new load
                     forceLoad();
+                }
+            }
+            protected void onReset() {
+                // Stop watching for file changes
+                if (mFileObserver != null) {
+                    mFileObserver.stopWatching();
+                    mFileObserver = null;
                 }
             }
 
@@ -196,6 +205,7 @@ public class MovieListActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if(mAdapter != null) {
+            Log.i(TAG, "size #" + data.getCount());
             mAdapter.clear();
             mAdapter.clear();
             mAdapter.notifyDataSetChanged();
