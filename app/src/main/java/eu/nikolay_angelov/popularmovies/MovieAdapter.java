@@ -41,7 +41,7 @@ public class MovieAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return adapterSize;
+        return content.ITEMS.size();
     }
 
     public void update(MovieContent content) {
@@ -57,6 +57,24 @@ public class MovieAdapter extends BaseAdapter {
         try{
             this.content = new MovieContent(mCursor.getCount());
             Log.i(TAG, "Cursor items " + mCursor.getCount());
+
+            /*
+            while(mCursor.moveToNext()) {
+                int index;
+                MovieContent.MovieItem mItem = new MovieContent.MovieItem();
+
+                index = cursor.getColumnIndexOrThrow("first_name");
+                String firstName = cursor.getString(index);
+
+                index = cursor.getColumnIndexOrThrow("last_name");
+                String lastName = cursor.getString(index);
+
+                index = cursor.getColumnIndexOrThrow("id");
+                long id = cursor.getLong(index);
+
+                //... do something with data
+            }*/
+
 
             while (mCursor.moveToNext()) {
                 MovieContent.MovieItem mItem = new MovieContent.MovieItem(mCursor);

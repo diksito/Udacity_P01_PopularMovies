@@ -50,12 +50,25 @@
             android:layout_height="240dp"
             android:adjustViewBounds="true" />
 
+
+        <Button
+            android:text="@string/button_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_favourite"
+            android:layout_below="@+id/movie_thumbnail"
+            android:onClick="favouriteMovieClick"
+            android:layout_alignParentStart="true" />
+
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="150dp"
-            android:layout_marginTop="180dp">
+            android:paddingTop="200dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -69,7 +82,7 @@
                 android:id="@+id/movie_released_date"/>
             <ScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="229dp">
+                android:layout_height="191dp">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,41 +90,56 @@
                         android:ems="10"
                         android:id="@+id/movie_overview" />
             </ScrollView>
-            <ListView
-                android:layout_width="match_parent"
-                android:id="@+id/review_listview"
-                android:layout_height="match_parent">
-
-            </ListView>
         </LinearLayout>
 
-        <ListView
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/movie_trailers_listview"
-            android:layout_marginTop="39dp"
-            android:paddingBottom="5dp"
-            android:layout_below="@+id/textView"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@id/button_favourite"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
 
-        <TextView
-            android:text="@string/title_movie_trailers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:id="@+id/textView"
-            android:layout_marginTop="59dp"
-            android:layout_below="@+id/movie_thumbnail"
-            android:layout_alignParentStart="true" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp">
+                <TextView
+                    android:text="@string/title_movie_trailers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:id="@+id/textView"
+                    android:layout_alignParentStart="true" />
+                <TextView
+                    android:text="@string/title_movie_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"
+                    android:paddingLeft="15dp"
+                    android:layout_below="@+id/button_favourite"
+                    android:layout_toEndOf="@+id/button_favourite" />
+            </TableRow>
 
-        <Button
-            android:text="@string/button_favourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_favourite"
-            android:layout_below="@+id/movie_thumbnail"
-            android:onClick="favouriteMovieClick"
-            android:layout_alignParentStart="true" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp">
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/movie_trailers_listview"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="20dp"/>
+                <ListView
+                    android:layout_width="169dp"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/review_listview"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="20dp">
+                </ListView>
+            </TableRow>
+
+        </TableLayout>
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -78,7 +78,13 @@ public class MovieDetailFragment extends Fragment {
             // to load content from a content provider.
 
             this.trailerListView = (ListView)this.getActivity().findViewById(R.id.movie_trailers_listview);
+            this.trailerListView.setDivider(null);
+            this.trailerListView.setDividerHeight(0);
+
             this.reviewListView = (ListView)this.getActivity().findViewById(R.id.review_listview);
+            this.reviewListView.setDivider(null);
+            this.reviewListView.setDividerHeight(0);
+
             Intent intent = this.getActivity().getIntent();
 
             Bundle b = intent.getExtras();

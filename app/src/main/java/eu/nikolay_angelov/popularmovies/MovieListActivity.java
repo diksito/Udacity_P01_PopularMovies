@@ -93,7 +93,11 @@ public class MovieListActivity extends AppCompatActivity implements
             }
 
             getSupportLoaderManager().restartLoader(MOVIE_LOADER_ID, null, MovieListActivity.this);
-            mAdapter.notifyDataSetChanged();
+
+            if(mAdapter != null) { // bug fix: based on the review
+                mAdapter.notifyDataSetChanged();
+            }
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -206,7 +210,6 @@ public class MovieListActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if(mAdapter != null) {
             Log.i(TAG, "size #" + data.getCount());
-            mAdapter.clear();
             mAdapter.clear();
             mAdapter.notifyDataSetChanged();
             mAdapter.update(data);
